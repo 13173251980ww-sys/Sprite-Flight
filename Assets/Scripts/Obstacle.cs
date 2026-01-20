@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Obstacle : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class Obstacle : MonoBehaviour
     public float minSpeed=50.0f;
     public float maxSpeed=150.0f;
     public float SpinSpeed=10f;
+    public GameObject BoundcyEffect;
     
     void Start()
     {
@@ -23,5 +26,12 @@ public class Obstacle : MonoBehaviour
         float randomTporque = Random.Range(-SpinSpeed, SpinSpeed);
         rb.AddTorque(randomTporque);
         rb.AddForce(randomDirection * randomSpeed);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        GameObject boundcy=Instantiate(BoundcyEffect, transform.position, transform.rotation);
+        
+        Destroy(boundcy,0.5f);
     }
 }
